@@ -1,6 +1,5 @@
 import { Stack } from "expo-router";
 import * as SplashScreen from "expo-splash-screen";
-import { StatusBar } from "expo-status-bar";
 import { useEffect } from "react";
 
 import { useFonts } from "expo-font";
@@ -9,7 +8,6 @@ import "react-native-reanimated";
 
 import "../global.css";
 
-import { useColorScheme } from "@/hooks/useColorScheme";
 import React from "react";
 
 SplashScreen.preventAutoHideAsync();
@@ -39,9 +37,13 @@ export default function RootLayout() {
   if (!fontsLoaded && !error) return null;
 
   return (
-    // <ThemeProvider value={colorScheme === "dark" ? DarkTheme : DefaultTheme}>
-    <Stack></Stack>
-    // <StatusBar style="auto" />
-    // </ThemeProvider>
+    <React.Fragment>
+      <Stack>
+        <Stack.Screen name="(tabs)" options={{ headerShown: false }} />
+        <Stack.Screen name="(auth)" options={{ headerShown: false }} />
+        <Stack.Screen name="index" options={{ headerShown: false }} />
+        {/*<Stack.Screen name="search/[query]" options={{ headerShown: false }} /> */}
+      </Stack>
+    </React.Fragment>
   );
 }
