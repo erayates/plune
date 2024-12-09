@@ -5,8 +5,14 @@ import { Image } from "react-native";
 import { images } from "@/constants";
 import CustomButton from "@/components/CustomButton";
 import { Redirect, router } from "expo-router";
+import { useGlobalContext } from "@/context/GlobalProvider";
 
 const App = () => {
+  const { auth } = useGlobalContext();
+
+  if (auth.isLoggedIn && !auth.isLoading)
+    return <Redirect href="/(tabs)/home" />;
+
   return (
     <SafeAreaView className="bg-primary h-full px-4">
       <ScrollView contentContainerStyle={{ height: "100%" }}>

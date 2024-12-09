@@ -1,5 +1,5 @@
 import client, { config } from "@/lib/appwrite";
-import { Account, Avatars, Databases, ID } from "react-native-appwrite";
+import { Account, Avatars, Databases, ID, Query } from "react-native-appwrite";
 
 import { ToastAndroid } from "react-native";
 import { signIn } from "./auth";
@@ -52,5 +52,30 @@ export const createUser = async (data: {
     );
   } catch {
     ToastAndroid.show("An error occurred", ToastAndroid.SHORT);
+  }
+};
+
+export const getCurrentUser = async () => {
+  try {
+    const currentAccount = await account.get();
+    if (!currentAccount) {
+      ToastAndroid.show("Account not found.", ToastAndroid.SHORT);
+      return;
+    }
+
+    const currentUser = await databases.listDocuments(
+      config.databaseId,
+      config.userColectionId,
+      [Query.equal("accountId", currentAccount.$id)]
+    );
+
+    if (!currentUser) {
+      ToastAndroid.show("User not found.", ToastAndroid.SHORT);
+      return;
+    }
+
+    return currentUser.documents[0];
+  } catch {
+    ToastAndroid.show("An error occurred. SERVER ERROR!", ToastAndroid.SHORT);
   }
 };
