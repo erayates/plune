@@ -6,7 +6,8 @@ import { images } from "@/constants";
 import FormField from "@/components/FormField";
 import CustomButton from "@/components/CustomButton";
 
-import { Link } from "expo-router";
+import { Link, router } from "expo-router";
+import { createUser } from "@/actions/user";
 
 const SignUp = () => {
   const [form, setForm] = useState({
@@ -17,8 +18,18 @@ const SignUp = () => {
 
   const [isSubmitting, setIsSubmitting] = useState(false);
 
-  const onSubmit = () => {
-    console.log(form);
+  const onSubmit = async () => {
+    if (!form.email || !form.password || !form.username) return;
+
+    setIsSubmitting(true);
+    try {
+      await createUser(form);
+      router.replace("/home");
+    } catch {
+      console.log("Error creating user");
+    } finally {
+      setIsSubmitting(false);
+    }
   };
 
   return (
@@ -39,7 +50,7 @@ const SignUp = () => {
             title="Username"
             value={form.username}
             placeholder="Enter your username"
-            handleChangeText={(e) => setForm({ ...form, email: e })}
+            handleChangeText={(e) => setForm({ ...form, username: e })}
             otherStyles="mt-7"
           />
 
@@ -61,7 +72,7 @@ const SignUp = () => {
           />
 
           <CustomButton
-            title="Sign In"
+            title="Sign Up"
             handlePress={onSubmit}
             containerStyles="mt-7"
             isLoading={isSubmitting}
@@ -75,7 +86,7 @@ const SignUp = () => {
               href="/sign-in"
               className="text-lg font-psemibold text-secondary"
             >
-              Sign Up
+              Sign In
             </Link>
           </View>
         </View>

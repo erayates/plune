@@ -11,6 +11,15 @@
     "ios": {
       "supportsTablet": true
     },
+    "extra": {
+      "APPWRITE_ENDPOINT": "https://cloud.appwrite.io/v1",
+      "APPWRITE_PROJECT_ID": "67561b1a001b5f8dfd7d",
+      "APPWRITE_DATABASE_ID": "67561c0300286d956ec0",
+      "APPWRITE_USER_COLLECTION_ID": "6756310b001eb0672ba6",
+      "APPWRITE_VIDEO_COLLECTION_ID": "6756312a0015e885f604",
+      "APPWRITE_STORAGE_ID": "675633f80007d00494c0",
+      "APPWRITE_PLATFORM": "com.ea.plune"
+    },
     "android": {
       "adaptiveIcon": {
         "foregroundImage": "./assets/images/adaptive-icon.png",
