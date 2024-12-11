@@ -5,7 +5,11 @@ import { router, usePathname } from "expo-router";
 import { View, TouchableOpacity, Image, TextInput, Alert } from "react-native";
 import { icons } from "../constants";
 
-const SearchInput = ({ initialQuery }: { initialQuery?: string }) => {
+const SearchInput = ({
+  initialQuery,
+}: {
+  initialQuery?: string | string[];
+}) => {
   const pathname = usePathname();
   const [query, setQuery] = useState(initialQuery || "");
 
@@ -13,7 +17,7 @@ const SearchInput = ({ initialQuery }: { initialQuery?: string }) => {
     <View className="flex flex-row items-center space-x-4 w-full h-16 px-4 bg-black-100 rounded-2xl border-2 border-black-200 focus:border-secondary">
       <TextInput
         className="text-base mt-1 text-white flex-1 font-pregular"
-        value={query}
+        value={query.toString()}
         placeholder="Search a video topic"
         placeholderTextColor="#CDCDE0"
         onChangeText={(e) => setQuery(e)}

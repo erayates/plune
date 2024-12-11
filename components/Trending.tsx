@@ -8,7 +8,7 @@ import {
 import React from "react";
 import { Models } from "react-native-appwrite";
 
-import * as Animatable from "react-native-animatable";
+import * as Animatable from 'react-native-animatable';
 import { zoomOut, zoomIn } from "@/utils/animations";
 
 import { icons } from "@/constants";

@@ -68,3 +68,27 @@ export async function getLatestPosts() {
     Alert.alert("ERROR!", "INTERNAL SERVER ERROR!");
   }
 }
+
+export async function searchPosts(query: string) {
+  console.log(query);
+  try {
+    const posts = await databases.listDocuments(
+      config.databaseId,
+      config.videoCollectionId,
+      [Query.search("title", query)]
+    );
+
+    if (!posts) {
+      Alert.alert(
+        "ERROR!",
+        "An error occurred when trying to fetch posts (videos.)"
+      );
+      return;
+    }
+
+    return posts.documents;
+  } catch (error) {
+    console.log(error);
+    Alert.alert("ERROR!", "INTERNAL SERVER ERROR!");
+  }
+}
