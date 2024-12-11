@@ -8,8 +8,12 @@ import CustomButton from "@/components/CustomButton";
 
 import { Link, router } from "expo-router";
 import { signIn } from "@/actions/auth";
+import { useGlobalContext } from "@/context/GlobalProvider";
+import { getCurrentUser } from "@/actions/user";
 
 const SignIn = () => {
+  const { setAuth } = useGlobalContext();
+
   const [form, setForm] = useState({
     email: "",
     password: "",
@@ -22,8 +26,12 @@ const SignIn = () => {
 
     setIsSubmitting(true);
     try {
-      await signIn(form);
-      router.replace("/home");
+      const session = await signIn(form);
+
+      if (session) {
+        const result = await getCurrentUser();
+        setAuth((prev) => ({ ...prev, user: result || null, isLoggedIn: true }));
+      }
     } catch {
       console.log("Error creating user");
     } finally {

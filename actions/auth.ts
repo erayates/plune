@@ -10,12 +10,26 @@ export async function signIn(data: { email: string; password: string }) {
     const session = await account.createEmailPasswordSession(email, password);
 
     if (!session) {
-      ToastAndroid.show("An error occurred", ToastAndroid.SHORT);
+      ToastAndroid.show(
+        "Enter correct email or password. Check your credentials again.",
+        ToastAndroid.SHORT
+      );
       return;
     }
 
     ToastAndroid.show("Signed in successfully", ToastAndroid.SHORT);
     return session;
+  } catch (error) {
+    ToastAndroid.show(
+      "Enter correct email or password. Check your credentials again.",
+      ToastAndroid.SHORT
+    );
+  }
+}
+
+export async function signOut() {
+  try {
+    await account.deleteSession("current");
   } catch {
     ToastAndroid.show("An error occurred", ToastAndroid.SHORT);
   }

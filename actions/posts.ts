@@ -20,7 +20,8 @@ export async function getAllPosts() {
     }
 
     return posts.documents;
-  } catch {
+  } catch (error) {
+    console.log(error);
     Alert.alert("ERROR!", "INTERNAL SERVER ERROR!");
   }
 }
@@ -64,7 +65,8 @@ export async function getLatestPosts() {
     }
 
     return posts.documents;
-  } catch {
+  } catch (error) {
+    console.log(error)
     Alert.alert("ERROR!", "INTERNAL SERVER ERROR!");
   }
 }
